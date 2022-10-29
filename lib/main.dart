@@ -6,110 +6,200 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Bonjour Nécromancien',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: BasicsPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class BasicsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    var size = MediaQuery.of(context).size;
+    var platform = Theme.of(context).platform;
+    print("size : $size");
+    print("platform : $platform");
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+        appBar: AppBar(
+          title: const Text("Bonjour Nécromancien"),
+          leading: const Icon(Icons.favorite),
+          actions: const [
+            Icon(Icons.handyman),
+            Icon(Icons.border_color),
           ],
+          centerTitle: true,
+          elevation: 7.5,
         ),
+        body: Container(
+            height: size.height,
+            width: size.width,
+            color: Colors.white,
+            //margin: const EdgeInsets.all(10),
+            //padding: const EdgeInsets.all(15),
+            child: Center(
+              child: Card(
+                elevation: 10,
+                margin: EdgeInsets.all(10),
+                child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: SingleChildScrollView(
+                      child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children:[
+                            const Text("Test de la colonne"),
+                            Stack(
+                              alignment: Alignment.topCenter,
+                              children: [
+                                fromAsset(height: 200, width: size.width),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 150),
+                                  child: profilePicture(),
+                                ),
+                                Row(
+                                  children: const [
+                                    Icon(Icons.favorite),
+                                    Icon(Icons.height),
+                                    Spacer(),
+                                    Text(
+                                        "Un autre élémént",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold
+                                        )
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            const Divider(
+                              color: Colors.grey,
+                              height: 20,
+                              thickness: 1,
+                            ),
+                            Container(
+                              margin: const EdgeInsets.all(20),
+                              height: 200,
+                              width: size.width,
+                              decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage("images/gnome.png"),
+                                      fit: BoxFit.cover
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.grey,
+                                        offset: Offset(2, 2),
+                                        blurRadius: 3,
+                                        spreadRadius: 5
+                                    )
+                                  ],
+                                  //shape: BoxShape.circle,
+                                  borderRadius: BorderRadius.all(Radius.circular(15))
+                              ),
+                              child: const Text("Container"),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(5),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    profilePicture(),
+                                    Expanded(
+                                      child: simpleText("Gudule"),
+                                    )
+                                  ]),
+                            ),
+                            fromNetwork(size),
+                            fromAsset(height: 160, width: 160)
+                          ]),
+                    )
+                ),
+              ),
+            )
+        )
+    );
+  }
+
+
+  CircleAvatar profilePicture() {
+    return const CircleAvatar(
+      radius: 50,
+      backgroundColor: Colors.blue,
+      foregroundImage: NetworkImage(
+        'https://images.pexels.com/photos/5601140/pexels-photo-5601140.jpeg?cs=srgb&dl=pexels-a-koolshooter-5601140.jpg&fm=jpg',
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  /// widget texte simple
+  Text simpleText(String text) {
+    return Text(
+      text,
+      style: const TextStyle(
+        color: Colors.black,
+        fontSize: 30,
+        fontWeight: FontWeight.bold,
+      ),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  Text spanDemo() {
+    return const Text.rich(
+      TextSpan(
+          text: "Salut",
+          style: TextStyle(
+              color: Colors.red,
+              fontSize: 25,
+              fontWeight: FontWeight.bold
+          ),
+          children: [
+            TextSpan(
+                text: "second style",
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.orange)
+            ),
+            TextSpan(
+                text: "A l'infini",
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color:  Colors.blue
+                )
+            )
+          ]
+      ),
+    );
+  }
+
+  Image fromAsset({required double height, required double width}) {
+    return Image.asset(
+      "images/gnome.png",
+      height: height,
+      width: width,
+      fit: BoxFit.cover,
+    );
+  }
+
+  Image fromNetwork(Size size) {
+    return Image.network(
+        'https://images.pexels.com/photos/5601140/pexels-photo-5601140.jpeg?cs=srgb&dl=pexels-a-koolshooter-5601140.jpg&fm=jpg',
+        height: 200,
+        fit: BoxFit.cover
     );
   }
 }
